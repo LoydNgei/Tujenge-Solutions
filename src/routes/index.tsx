@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "../components/Hero";
 import { BentoGrid } from "../components/BentoGrid";
+import { ProjectsPreview } from "../components/ProjectsPreview";
 import { CTASection } from "../components/CTASection";
 
 export const Route = createFileRoute("/")({
@@ -20,6 +21,7 @@ function Index() {
     <>
       <Hero />
       <BentoGrid />
+      <ProjectsPreview />
       <CTASection />
     </>
   );
