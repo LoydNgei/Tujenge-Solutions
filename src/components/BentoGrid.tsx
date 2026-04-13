@@ -16,22 +16,6 @@ const imageMap: Record<string, string> = {
   "custom-systems": serviceSystems,
 };
 
-const spanMap: Record<number, string> = {
-  0: "md:col-span-2 md:row-span-1",
-  1: "md:col-span-1 md:row-span-2",
-  2: "md:col-span-1 md:row-span-1",
-  3: "md:col-span-1 md:row-span-1",
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
-  }),
-};
-
 export function BentoGrid() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-24">
@@ -40,65 +24,81 @@ export function BentoGrid() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="mb-16"
+        className="mb-12 flex items-end justify-between"
       >
-        <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-gold">What We Do</p>
-        <h2 className="font-heading text-3xl font-bold md:text-5xl">
-          Solutions that <span className="text-gradient-gold">move the needle</span>
-        </h2>
+        <div>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-gold">What We Do</p>
+          <h2 className="font-heading text-3xl font-bold md:text-5xl">
+            Solutions that <span className="text-gradient-gold">move the needle</span>
+          </h2>
+        </div>
+        <Link
+          to="/services"
+          className="hidden items-center gap-2 text-sm font-medium text-gold transition-all hover:gap-3 md:inline-flex"
+        >
+          All services <ArrowRight className="h-4 w-4" />
+        </Link>
       </motion.div>
 
-      <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
+      {/* Horizontal scroll cards on mobile, staggered grid on desktop */}
+      <div className="grid gap-5 md:grid-cols-2">
         {bentoServices.map((service, i) => {
           const Icon = service.icon;
           const bgImage = imageMap[service.slug];
           return (
             <motion.div
               key={service.slug}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              variants={cardVariants}
-              className={`group relative overflow-hidden rounded-2xl border border-border/50 transition-all duration-300 hover:border-gold/30 ${spanMap[i] ?? ""}`}
+              transition={{ delay: i * 0.12, duration: 0.6, ease: "easeOut" }}
             >
-              {/* Background image */}
-              {bgImage && (
-                <div className="absolute inset-0">
-                  <img
-                    src={bgImage}
-                    alt=""
-                    loading="lazy"
-                    width={800}
-                    height={600}
-                    className="h-full w-full object-cover opacity-30 transition-opacity duration-500 group-hover:opacity-40"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
-                </div>
-              )}
+              <Link
+                to="/services/$slug"
+                params={{ slug: service.slug }}
+                className="group relative flex h-full min-h-[260px] overflow-hidden rounded-2xl border border-border/50 transition-all duration-300 hover:border-gold/30"
+              >
+                {/* Background image */}
+                {bgImage && (
+                  <div className="absolute inset-0">
+                    <img
+                      src={bgImage}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
+                  </div>
+                )}
 
-              <div className="relative p-8">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 backdrop-blur-sm">
-                  <Icon className="h-6 w-6 text-gold" />
+                <div className="relative flex flex-1 flex-col justify-between p-8">
+                  <div>
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gold/10 backdrop-blur-sm">
+                      <Icon className="h-5 w-5 text-gold" />
+                    </div>
+                    <h3 className="mb-2 font-heading text-xl font-bold text-foreground">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground line-clamp-2">
+                      {service.tagline}
+                    </p>
+                  </div>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold transition-all group-hover:gap-3">
+                    Explore <ArrowRight className="h-4 w-4" />
+                  </div>
                 </div>
-                <h3 className="mb-3 font-heading text-xl font-bold text-foreground">
-                  {service.title}
-                </h3>
-                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                  {service.description}
-                </p>
-                <Link
-                  to="/services/$slug"
-                  params={{ slug: service.slug }}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-gold transition-all group-hover:gap-3"
-                >
-                  Learn more <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+              </Link>
             </motion.div>
           );
         })}
       </div>
+
+      <Link
+        to="/services"
+        className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-gold transition-all hover:gap-3 md:hidden"
+      >
+        View all services <ArrowRight className="h-4 w-4" />
+      </Link>
     </section>
   );
 }
