@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import heroImage from "../assets/hero-tech.jpg";
 
 export function Hero() {
   return (
@@ -15,26 +16,13 @@ export function Hero() {
         }}
       />
 
-      {/* Gold glow orb */}
-      <div className="pointer-events-none absolute right-1/4 top-1/3 h-[500px] w-[500px] rounded-full bg-gold/5 blur-[120px]" />
-
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-2 md:gap-16">
+        {/* Left — Text */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-3xl"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/5 px-4 py-2 text-sm text-gold"
-          >
-            <Sparkles className="h-4 w-4" />
-            Digital studio based in Nairobi
-          </motion.div>
-
           <h1 className="font-heading text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
             We build digital
             <br />
@@ -44,7 +32,8 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-            From stunning websites to AI-powered automation systems — we help businesses across Kenya grow revenue and operate smarter.
+            From stunning websites to AI-powered automation systems — we help
+            businesses across Kenya grow revenue and operate smarter.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -64,25 +53,27 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Stats row */}
+        {/* Right — Hero visual */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          className="mt-20 grid grid-cols-3 gap-8 border-t border-border/50 pt-10 md:max-w-lg"
+          initial={{ opacity: 0, x: 40, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+          className="relative"
         >
-          {[
-            { value: "50+", label: "Projects delivered" },
-            { value: "3yrs", label: "In the game" },
-            { value: "98%", label: "Client satisfaction" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className="font-heading text-2xl font-bold text-gold md:text-3xl">
-                {stat.value}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
+          <div className="relative overflow-hidden rounded-3xl border border-gold/10">
+            <img
+              src={heroImage}
+              alt="N5 Labs digital technology"
+              width={1024}
+              height={1024}
+              className="h-full w-full object-cover"
+            />
+            {/* Gold overlay glow */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          </div>
+          {/* Floating accent */}
+          <div className="pointer-events-none absolute -bottom-6 -right-6 h-48 w-48 rounded-full bg-gold/10 blur-[80px]" />
+          <div className="pointer-events-none absolute -left-8 -top-8 h-32 w-32 rounded-full bg-gold/5 blur-[60px]" />
         </motion.div>
       </div>
     </section>
