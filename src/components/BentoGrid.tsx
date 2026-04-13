@@ -2,8 +2,19 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { services } from "../lib/services-data";
+import serviceWeb from "../assets/service-web.jpg";
+import serviceAi from "../assets/service-ai.jpg";
+import serviceSeo from "../assets/service-seo.jpg";
+import serviceSystems from "../assets/service-systems.jpg";
 
 const bentoServices = services.slice(0, 4);
+
+const imageMap: Record<string, string> = {
+  "web-development": serviceWeb,
+  "ai-automation": serviceAi,
+  "seo-digital-marketing": serviceSeo,
+  "custom-systems": serviceSystems,
+};
 
 const spanMap: Record<number, string> = {
   0: "md:col-span-2 md:row-span-1",
@@ -40,6 +51,7 @@ export function BentoGrid() {
       <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
         {bentoServices.map((service, i) => {
           const Icon = service.icon;
+          const bgImage = imageMap[service.slug];
           return (
             <motion.div
               key={service.slug}
@@ -48,28 +60,41 @@ export function BentoGrid() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={cardVariants}
-              className={`group relative overflow-hidden rounded-2xl border border-border/50 p-8 transition-all duration-300 hover:border-gold/30 ${spanMap[i] ?? ""} ${
-                i === 0
-                  ? "bg-gradient-to-br from-gold-dark/10 to-surface"
-                  : "bg-surface"
-              }`}
+              className={`group relative overflow-hidden rounded-2xl border border-border/50 transition-all duration-300 hover:border-gold/30 ${spanMap[i] ?? ""}`}
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10">
-                <Icon className="h-6 w-6 text-gold" />
+              {/* Background image */}
+              {bgImage && (
+                <div className="absolute inset-0">
+                  <img
+                    src={bgImage}
+                    alt=""
+                    loading="lazy"
+                    width={800}
+                    height={600}
+                    className="h-full w-full object-cover opacity-30 transition-opacity duration-500 group-hover:opacity-40"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
+                </div>
+              )}
+
+              <div className="relative p-8">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 backdrop-blur-sm">
+                  <Icon className="h-6 w-6 text-gold" />
+                </div>
+                <h3 className="mb-3 font-heading text-xl font-bold text-foreground">
+                  {service.title}
+                </h3>
+                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                  {service.description}
+                </p>
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: service.slug }}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-gold transition-all group-hover:gap-3"
+                >
+                  Learn more <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
-              <h3 className="mb-3 font-heading text-xl font-bold text-foreground">
-                {service.title}
-              </h3>
-              <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                {service.description}
-              </p>
-              <Link
-                to="/services/$slug"
-                params={{ slug: service.slug }}
-                className="inline-flex items-center gap-2 text-sm font-medium text-gold transition-all group-hover:gap-3"
-              >
-                Learn more <ArrowRight className="h-4 w-4" />
-              </Link>
             </motion.div>
           );
         })}
