@@ -60,12 +60,12 @@ function ProjectsPage() {
                 className="group block overflow-hidden rounded-2xl border border-border/60 bg-card shadow-warm transition-all duration-300 hover:border-gold/30 hover:shadow-warm-lg"
               >
                 {/* Visual area — image or gradient */}
-                <div className={`relative h-64 bg-gradient-to-br ${categoryColors[project.category] ?? project.color} overflow-hidden`}>
+                <div className={`relative aspect-video bg-gradient-to-br ${categoryColors[project.category] ?? project.color} overflow-hidden`}>
                   {project.imageUrl ? (
                     <img
                       src={project.imageUrl}
                       alt={project.title}
-                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
                     <div className="flex h-full flex-col items-center justify-center p-10">

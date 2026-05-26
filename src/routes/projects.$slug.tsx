@@ -98,13 +98,13 @@ function ProjectDetailPage() {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`relative overflow-hidden rounded-3xl border border-border/60 shadow-warm-lg md:h-[480px] h-72`}
+          className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-border/60 shadow-warm-lg"
         >
           {project.imageUrl ? (
             <img
               src={project.imageUrl}
               alt={`${project.title} screenshot`}
-              className="h-full w-full object-cover object-top"
+              className="h-full w-full object-cover object-center"
             />
           ) : (
             <div className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${gradientColor}`}>
