@@ -49,8 +49,8 @@ export function TeamSection() {
         </p>
       </motion.div>
 
-      {/* Team grid — always centered/justified regardless of member count */}
-      <div className="flex flex-wrap justify-center gap-6 md:justify-start">
+      {/* Team grid — equal columns, no dead space */}
+      <div className="grid gap-6 sm:grid-cols-2">
         {team.map((member, i) => (
           <motion.div
             key={member.name}
@@ -58,7 +58,7 @@ export function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.15 }}
-            className="w-full max-w-sm rounded-2xl border border-gold/20 bg-card p-8 shadow-warm-lg md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+            className="rounded-2xl border border-gold/20 bg-card p-8 shadow-warm-lg"
           >
             <div className="relative mb-5 h-20 w-20">
               <img
