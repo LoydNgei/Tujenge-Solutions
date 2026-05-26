@@ -33,14 +33,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "N5 Labs — Digital Studio | Nairobi, Kenya" },
-      { name: "description", content: "N5 Labs builds modern websites, AI automation, and marketing solutions for businesses in Kenya." },
-      { name: "author", content: "N5 Labs" },
-      { property: "og:title", content: "N5 Labs — Digital Studio" },
-      { property: "og:description", content: "We build digital products that scale your business." },
+      { title: "Tujenge Solutions — Digital Solutions for Kenyan Businesses" },
+      { name: "description", content: "Tujenge Solutions builds powerful digital platforms, web applications, and business systems for SMEs and businesses across Kenya." },
+      { name: "author", content: "Tujenge Solutions" },
+      { property: "og:title", content: "Tujenge Solutions — Digital Solutions for Kenya" },
+      { property: "og:description", content: "We build smart, scalable digital solutions for businesses across Kenya." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@n5labs" },
+      { name: "twitter:site", content: "@tujengesolutions" },
     ],
     links: [
       {

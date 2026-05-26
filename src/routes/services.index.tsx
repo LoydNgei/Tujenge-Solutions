@@ -6,22 +6,27 @@ import { CTASection } from "../components/CTASection";
 import serviceWeb from "../assets/service-web.jpg";
 import serviceAi from "../assets/service-ai.jpg";
 import serviceSeo from "../assets/service-seo.jpg";
-import serviceSystems from "../assets/service-systems.jpg";
+import serviceSystems from "../assets/service-custom.jpg";
+import ServiceSupport from "../assets/service-support.jpeg";
+import ServiceDomain from "../assets/service-domain.jpg";
+
 
 const imageMap: Record<string, string> = {
   "web-development": serviceWeb,
   "ai-automation": serviceAi,
   "seo-digital-marketing": serviceSeo,
   "custom-systems": serviceSystems,
+  "maintenance-support": ServiceSupport,
+  "domain-hosting": ServiceDomain
 };
 
 export const Route = createFileRoute("/services/")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Services — N5 Labs" },
-      { name: "description", content: "Web development, AI automation, SEO marketing, and custom business systems built by N5 Labs in Kenya." },
-      { property: "og:title", content: "Services — N5 Labs" },
+      { title: "Services — Tujenge Solutions" },
+      { name: "description", content: "Web development, AI automation, SEO marketing, and custom business systems built by Tujenge Solutions in Kenya." },
+      { property: "og:title", content: "Services — Tujenge Solutions" },
       { property: "og:description", content: "Full-stack digital services for growing businesses." },
     ],
   }),
@@ -69,9 +74,9 @@ function ServicesPage() {
                   className="group relative block overflow-hidden rounded-2xl border border-border/50 bg-surface transition-all duration-300 hover:border-gold/30"
                 >
                   {bgImage && (
-                    <div className="relative h-40 overflow-hidden">
-                      <img src={bgImage} alt="" loading="lazy" className="h-full w-full object-cover opacity-50 transition-all duration-500 group-hover:scale-105 group-hover:opacity-60" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent" />
+                    <div className="relative h-48 overflow-hidden">
+                      <img src={bgImage} alt="" loading="lazy" className="h-full w-full object-cover opacity-80 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent" />
                     </div>
                   )}
                   <div className="p-8">

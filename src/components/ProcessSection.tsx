@@ -60,7 +60,7 @@ export function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
-              className="group relative rounded-2xl border border-border/50 bg-surface p-8 transition-all duration-300 hover:border-gold/30"
+              className="group relative rounded-2xl border border-border/60 bg-card p-8 shadow-warm transition-all duration-300 hover:border-gold/30 hover:shadow-warm-lg"
             >
               {/* Step number */}
               <span className="absolute right-6 top-6 font-heading text-4xl font-bold text-gold/10 transition-colors group-hover:text-gold/20">

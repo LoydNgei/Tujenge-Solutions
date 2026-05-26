@@ -9,10 +9,10 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "N5 Labs — Digital Studio | Nairobi, Kenya" },
-      { name: "description", content: "N5 Labs builds modern websites, AI automation, and digital marketing solutions for businesses across Kenya." },
-      { property: "og:title", content: "N5 Labs — Digital Studio | Nairobi, Kenya" },
-      { property: "og:description", content: "We build digital products that scale your business." },
+      { title: "Tujenge Solutions — Digital Solutions for Kenyan Businesses" },
+      { name: "description", content: "Tujenge Solutions builds digital platforms, web applications, and business systems for SMEs and businesses across Kenya." },
+      { property: "og:title", content: "Tujenge Solutions — Digital Solutions for Kenyan Businesses" },
+      { property: "og:description", content: "We build smart, scalable digital solutions for businesses across Kenya." },
     ],
   }),
 });

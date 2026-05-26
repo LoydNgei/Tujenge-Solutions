@@ -1,15 +1,20 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle, ExternalLink, Clock } from "lucide-react";
 import { projects } from "../lib/projects-data";
 import { CTASection } from "../components/CTASection";
+
+const categoryColors: Record<string, string> = {
+  "Platform Development": "from-emerald-500/80 to-teal-700/90",
+  "Web Application": "from-blue-500/80 to-indigo-700/90",
+};
 
 export const Route = createFileRoute("/projects/$slug")({
   component: ProjectDetailPage,
   head: ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
-    const title = project ? `${project.title} — N5 Labs` : "Project — N5 Labs";
-    const desc = project?.description ?? "Project by N5 Labs.";
+    const title = project ? `${project.title} — Tujenge Solutions` : "Project — Tujenge Solutions";
+    const desc = project?.description ?? "Project by Tujenge Solutions.";
     return {
       meta: [
         { title },
@@ -44,9 +49,12 @@ function ProjectDetailPage() {
   const nextProject = projects[(currentIndex + 1) % projects.length];
   const prevProject = projects[(currentIndex - 1 + projects.length) % projects.length];
 
+  const gradientColor = categoryColors[project.category] ?? project.color;
+
   return (
     <>
-      <section className="pt-32 pb-16">
+      {/* Header */}
+      <section className="pt-32 pb-10">
         <div className="mx-auto max-w-7xl px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -60,13 +68,7 @@ function ProjectDetailPage() {
               <ArrowLeft className="h-4 w-4" /> All Projects
             </Link>
 
-            <div className="mb-4 flex flex-wrap gap-2">
-              <span className="rounded-full bg-gold/10 px-3 py-1 text-xs font-medium text-gold">
-                {project.category}
-              </span>
-            </div>
-
-            <h1 className="font-heading text-4xl font-bold md:text-6xl">
+            <h1 className="font-heading text-4xl font-bold text-foreground md:text-6xl">
               {project.title}
             </h1>
             <p className="mt-2 text-lg text-muted-foreground">
@@ -75,23 +77,84 @@ function ProjectDetailPage() {
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
               {project.description}
             </p>
+
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-gold px-6 py-3 font-heading text-sm font-semibold text-primary-foreground shadow-warm transition-all hover:opacity-90"
+              >
+                View Live Site <ExternalLink className="h-4 w-4" />
+              </a>
+            )}
           </motion.div>
         </div>
       </section>
 
-      {/* Hero visual */}
+      {/* Hero Visual */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`h-64 rounded-3xl bg-gradient-to-br ${project.color} border border-border/50 md:h-96`}
-        />
+          className={`relative overflow-hidden rounded-3xl border border-border/60 shadow-warm-lg md:h-[480px] h-72`}
+        >
+          {project.imageUrl ? (
+            <img
+              src={project.imageUrl}
+              alt={`${project.title} screenshot`}
+              className="h-full w-full object-cover object-top"
+            />
+          ) : (
+            <div className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${gradientColor}`}>
+              <div className="text-center text-white/90 px-8">
+                <p className="font-heading text-3xl font-bold md:text-4xl">{project.title}</p>
+                <p className="mt-3 text-lg opacity-80">{project.client}</p>
+              </div>
+            </div>
+          )}
+        </motion.div>
+        {/* Drop a real screenshot note */}
+        {!project.imageUrl && (
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            Screenshot coming soon — drop a real image at <code className="rounded bg-muted px-1 py-0.5">src/assets/</code> and set <code className="rounded bg-muted px-1 py-0.5">imageUrl</code> in projects-data.ts
+          </p>
+        )}
       </section>
 
-      {/* Results */}
+      {/* Highlights */}
       <section className="mx-auto max-w-7xl px-6 pb-16">
-        <h2 className="mb-8 font-heading text-2xl font-bold">Key Results</h2>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="mb-8 font-heading text-2xl font-bold text-foreground">What We Built</h2>
+          <div className="grid gap-4 sm:grid-cols-1 lg:grid-cols-3">
+            {project.highlights.map((highlight, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.4 }}
+                className="flex items-start gap-4 rounded-2xl border border-border/60 bg-card p-6 shadow-warm"
+              >
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold/10">
+                  <CheckCircle className="h-4 w-4 text-gold" />
+                </div>
+                <p className="text-sm leading-relaxed text-foreground">{highlight}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Key Outcomes */}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <h2 className="mb-8 font-heading text-2xl font-bold text-foreground">Key Outcomes</h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {project.results.map((result, i) => (
             <motion.div
@@ -100,10 +163,9 @@ function ProjectDetailPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="flex items-center gap-3 rounded-xl border border-border/50 bg-surface p-6"
+              className="rounded-xl border border-gold/15 bg-gold/5 p-6 text-center"
             >
-              <CheckCircle className="h-5 w-5 shrink-0 text-gold" />
-              <span className="font-heading font-semibold text-foreground">{result}</span>
+              <p className="font-heading font-semibold text-foreground">{result}</p>
             </motion.div>
           ))}
         </div>
@@ -111,10 +173,13 @@ function ProjectDetailPage() {
 
       {/* Tags */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
-        <h2 className="mb-4 font-heading text-lg font-bold">Technologies & Tags</h2>
+        <h2 className="mb-4 font-heading text-lg font-bold text-foreground">Tech Stack & Tags</h2>
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
-            <span key={tag} className="rounded-full border border-border/50 bg-surface-light px-4 py-2 text-sm text-muted-foreground">
+            <span
+              key={tag}
+              className="rounded-full border border-border/60 bg-surface px-4 py-2 text-sm text-muted-foreground"
+            >
               {tag}
             </span>
           ))}
@@ -122,7 +187,7 @@ function ProjectDetailPage() {
       </section>
 
       {/* Navigation between projects */}
-      <section className="border-t border-border/50">
+      <section className="border-t border-border/60">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <div className="flex items-center justify-between">
             <Link

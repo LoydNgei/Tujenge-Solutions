@@ -5,7 +5,9 @@ import { services } from "../lib/services-data";
 import serviceWeb from "../assets/service-web.jpg";
 import serviceAi from "../assets/service-ai.jpg";
 import serviceSeo from "../assets/service-seo.jpg";
-import serviceSystems from "../assets/service-systems.jpg";
+import serviceSystems from "../assets/service-custom.jpg";
+import ServiceSupport from "../assets/service-support.jpeg";
+import ServiceDomain from "../assets/service-domain.jpg";
 
 const bentoServices = services.slice(0, 4);
 
@@ -14,6 +16,8 @@ const imageMap: Record<string, string> = {
   "ai-automation": serviceAi,
   "seo-digital-marketing": serviceSeo,
   "custom-systems": serviceSystems,
+  "maintenance-support": ServiceSupport,
+  "domain-hosting": ServiceDomain
 };
 
 export function BentoGrid() {
@@ -56,21 +60,8 @@ export function BentoGrid() {
               <Link
                 to="/services/$slug"
                 params={{ slug: service.slug }}
-                className="group relative flex h-full min-h-[260px] overflow-hidden rounded-2xl border border-border/50 transition-all duration-300 hover:border-gold/30"
+                className="group relative flex h-full min-h-[260px] overflow-hidden rounded-2xl border border-border/60 bg-card shadow-warm transition-all duration-300 hover:border-gold/30 hover:shadow-warm-lg"
               >
-                {/* Background image */}
-                {bgImage && (
-                  <div className="absolute inset-0">
-                    <img
-                      src={bgImage}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover opacity-20 transition-all duration-700 group-hover:scale-105 group-hover:opacity-30"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
-                  </div>
-                )}
-
                 <div className="relative flex flex-1 flex-col justify-between p-8">
                   <div>
                     <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-gold/10 backdrop-blur-sm">

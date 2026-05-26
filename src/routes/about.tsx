@@ -2,15 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Target, Eye, Users } from "lucide-react";
 import { CTASection } from "../components/CTASection";
+import { TeamSection } from "../components/TeamSection";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About — N5 Labs" },
-      { name: "description", content: "N5 Labs is a Nairobi-based digital studio helping businesses across Kenya scale with technology." },
-      { property: "og:title", content: "About — N5 Labs" },
-      { property: "og:description", content: "Meet the team behind N5 Labs." },
+      { title: "About — Tujenge Solutions" },
+      { name: "description", content: "Tujenge Solutions is a Nairobi-based digital studio helping SMEs and businesses across Kenya build and scale with technology." },
+      { property: "og:title", content: "About — Tujenge Solutions" },
+      { property: "og:description", content: "Meet the team behind Tujenge Solutions." },
     ],
   }),
 });
@@ -27,13 +28,16 @@ function AboutPage() {
             className="max-w-3xl"
           >
             <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-gold">About Us</p>
-            <h1 className="font-heading text-4xl font-bold md:text-6xl">
-              A digital studio with
+            <h1 className="font-heading text-4xl font-bold text-foreground md:text-6xl">
+              Built for business,
               <br />
-              <span className="text-gradient-gold">African ambition</span>
+              <span className="text-gradient-gold">rooted in Kenya</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              N5 Labs was born out of a simple belief: businesses in Kenya and across Africa deserve world-class digital products. We combine cutting-edge technology with deep local market understanding to build solutions that actually work.
+              Tujenge Solutions was born from a simple conviction: every Kenyan SME deserves access to world-class technology. We partner with businesses to design, build, and scale digital solutions that drive real, measurable growth — not just beautiful interfaces.
+            </p>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              "Tujenge" means <em className="text-foreground font-medium">let's build</em> in Swahili — and that's exactly what we do. One solution at a time, one business at a time.
             </p>
           </motion.div>
 
@@ -42,17 +46,17 @@ function AboutPage() {
               {
                 icon: Target,
                 title: "Our Mission",
-                desc: "To empower businesses with technology that drives measurable growth and operational efficiency.",
+                desc: "To empower Kenyan SMEs and businesses with digital solutions that drive measurable growth, operational efficiency, and competitive advantage.",
               },
               {
                 icon: Eye,
                 title: "Our Vision",
-                desc: "To be the most trusted digital partner for ambitious businesses across East Africa.",
+                desc: "To be the most trusted technology partner for ambitious businesses building the future of Kenya's economy.",
               },
               {
                 icon: Users,
                 title: "Our Approach",
-                desc: "We listen first, then build. Every solution is tailored to your specific challenges, market, and goals.",
+                desc: "We listen first, build second. Every solution is deeply tailored to your specific business challenges, your market, and your growth goals.",
               },
             ].map((item, i) => (
               <motion.div
@@ -61,7 +65,7 @@ function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15, duration: 0.5 }}
-                className="rounded-2xl border border-border/50 bg-surface p-8"
+                className="rounded-2xl border border-border/60 bg-card p-8 shadow-warm"
               >
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10">
                   <item.icon className="h-6 w-6 text-gold" />
@@ -71,6 +75,9 @@ function AboutPage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Team Section */}
+          <TeamSection />
         </div>
       </section>
 
