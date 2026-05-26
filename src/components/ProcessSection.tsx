@@ -7,7 +7,7 @@ const steps = [
     number: "01",
     title: "Discovery Call",
     description:
-      "We start with a conversation. Tell us about your business, goals, and pain points. No jargon — just a real chat about where you want to go.",
+      "We start with a conversation. Tell us about your business, goals, and pain points. No jargon, just a real chat about where you want to go.",
   },
   {
     icon: Search,
@@ -21,7 +21,7 @@ const steps = [
     number: "03",
     title: "Design & Build",
     description:
-      "Our team gets to work — designing, coding, and testing. You get regular updates and previews so nothing catches you off guard.",
+      "Our team gets to work: designing, coding, and testing. You get regular updates and previews so nothing catches you off guard.",
   },
   {
     icon: Rocket,

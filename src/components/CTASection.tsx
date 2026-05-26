@@ -19,7 +19,7 @@ export function CTASection() {
             Ready to build something great?
           </h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Let's discuss your business challenges — no pressure, just solutions.
+            Let's discuss your business challenges, no pressure, just solutions.
           </p>
         </div>
         <Link

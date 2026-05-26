@@ -34,10 +34,10 @@ function AboutPage() {
               <span className="text-gradient-gold">rooted in Kenya</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Tujenge Solutions was born from a simple conviction: every Kenyan SME deserves access to world-class technology. We partner with businesses to design, build, and scale digital solutions that drive real, measurable growth — not just beautiful interfaces.
+              Tujenge Solutions was born from a simple conviction: every Kenyan SME deserves access to world-class technology. We partner with businesses to design, build, and scale digital solutions that drive real, measurable growth, not just beautiful interfaces.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              "Tujenge" means <em className="text-foreground font-medium">let's build</em> in Swahili — and that's exactly what we do. One solution at a time, one business at a time.
+              "Tujenge" means <em className="text-foreground font-medium">let's build</em> in Swahili, and that's exactly what we do. One solution at a time, one business at a time.
             </p>
           </motion.div>
 

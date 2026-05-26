@@ -115,12 +115,6 @@ function ProjectDetailPage() {
             </div>
           )}
         </motion.div>
-        {/* Drop a real screenshot note */}
-        {!project.imageUrl && (
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            Screenshot coming soon — drop a real image at <code className="rounded bg-muted px-1 py-0.5">src/assets/</code> and set <code className="rounded bg-muted px-1 py-0.5">imageUrl</code> in projects-data.ts
-          </p>
-        )}
       </section>
 
       {/* Highlights */}
@@ -153,7 +147,7 @@ function ProjectDetailPage() {
       </section>
 
       {/* Key Outcomes */}
-      <section className="mx-auto max-w-7xl px-6 pb-16">
+      <section className="mx-auto max-w-7xl px-6 pb-24">
         <h2 className="mb-8 font-heading text-2xl font-bold text-foreground">Key Outcomes</h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {project.results.map((result, i) => (
@@ -167,21 +161,6 @@ function ProjectDetailPage() {
             >
               <p className="font-heading font-semibold text-foreground">{result}</p>
             </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Tags */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
-        <h2 className="mb-4 font-heading text-lg font-bold text-foreground">Tech Stack & Tags</h2>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-border/60 bg-surface px-4 py-2 text-sm text-muted-foreground"
-            >
-              {tag}
-            </span>
           ))}
         </div>
       </section>

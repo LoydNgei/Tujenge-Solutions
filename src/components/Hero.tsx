@@ -40,7 +40,7 @@ export function Hero() {
             </h1>
 
             <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              From powerful web platforms to seamless payment systems — we partner
+              From powerful web platforms to seamless payment systems, we partner
               with businesses to build technology that actually works.
             </p>
 
@@ -70,11 +70,6 @@ export function Hero() {
               <div className="text-center">
                 <p className="font-heading text-2xl font-bold text-foreground">100%</p>
                 <p className="text-xs text-muted-foreground">Client Satisfaction</p>
-              </div>
-              <div className="h-8 w-px bg-border/60" />
-              <div className="text-center">
-                <p className="font-heading text-2xl font-bold text-foreground">🇰🇪</p>
-                <p className="text-xs text-muted-foreground">Kenya-Based</p>
               </div>
             </div>
           </motion.div>

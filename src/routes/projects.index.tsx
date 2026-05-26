@@ -38,7 +38,7 @@ function ProjectsPage() {
               <span className="text-gradient-gold">speak results</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-              Every project is a partnership. Here's a look at the real digital solutions we've built — and the problems we've solved — for businesses across Kenya.
+              Every project is a partnership. Here's a look at the real digital solutions we've built, and the problems we've solved, for businesses across Kenya.
             </p>
           </motion.div>
         </div>

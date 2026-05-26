@@ -11,11 +11,11 @@ export const services = [
     details: [
       {
         heading: "Built for Performance",
-        text: "Every site we ship scores 90+ on Lighthouse. We use server-side rendering, image optimization, and edge caching to make your site load in under 2 seconds — anywhere in Kenya and beyond.",
+        text: "Every site we ship scores 90+ on Lighthouse. We use server-side rendering, image optimization, and edge caching to make your site load in under 2 seconds, anywhere in Kenya and beyond.",
       },
       {
         heading: "E-Commerce Ready",
-        text: "From Shopify integrations to fully custom storefronts with M-Pesa and card payments. We build online stores that handle real African commerce — multi-currency, mobile-first, and built to sell.",
+        text: "From Shopify integrations to fully custom storefronts with M-Pesa and card payments. We build online stores that handle real African commerce: multi-currency, mobile-first, and built to sell.",
       },
       {
         heading: "Scalable Architecture",
@@ -33,11 +33,11 @@ export const services = [
     details: [
       {
         heading: "Custom AI Agents",
-        text: "We build AI assistants tailored to your business — customer support bots that speak your brand's voice, data analysts that crunch numbers while you sleep, and smart workflows that run on autopilot.",
+        text: "We build AI assistants tailored to your business: customer support bots that speak your brand's voice, data analysts that crunch numbers while you sleep, and smart workflows that run on autopilot.",
       },
       {
         heading: "Process Automation",
-        text: "Manual data entry, invoice processing, report generation — we automate it all. Connect your existing tools (Google Sheets, WhatsApp, email) with intelligent pipelines that just work.",
+        text: "Manual data entry, invoice processing, report generation: we automate it all. Connect your existing tools (Google Sheets, WhatsApp, email) with intelligent pipelines that just work.",
       },
       {
         heading: "Predictive Analytics",
@@ -55,15 +55,15 @@ export const services = [
     details: [
       {
         heading: "Rank Higher on Google",
-        text: "We do the keyword research, technical audits, and content optimization that moves you from page 5 to page 1. Local SEO included — dominate 'near me' searches across Nairobi and Kenya.",
+        text: "We do the keyword research, technical audits, and content optimization that moves you from page 5 to page 1. Local SEO included, so you can dominate 'near me' searches across Nairobi and Kenya.",
       },
       {
         heading: "Social Media That Converts",
-        text: "Not just likes — leads. We create content strategies for Instagram, TikTok, LinkedIn, and X that build your brand and drive actual business results. We handle everything from content creation to community management.",
+        text: "Not just likes, but leads. We create content strategies for Instagram, TikTok, LinkedIn, and X that build your brand and drive actual business results. We handle everything from content creation to community management.",
       },
       {
         heading: "Paid Advertising",
-        text: "Google Ads, Facebook Ads, Instagram Ads — we manage campaigns that deliver ROI, not vanity metrics. Data-driven targeting, A/B testing, and continuous optimization to maximize every shilling you spend.",
+        text: "Google Ads, Facebook Ads, Instagram Ads: we manage campaigns that deliver ROI, not vanity metrics. Data-driven targeting, A/B testing, and continuous optimization to maximize every shilling you spend.",
       },
     ],
   },
@@ -72,7 +72,7 @@ export const services = [
     icon: Cog,
     title: "Custom Systems",
     tagline: "Software built around your business",
-    description: "Off-the-shelf software doesn't fit? We design and build bespoke systems tailored to your exact business needs — inventory, HR, logistics, you name it.",
+    description: "Off-the-shelf software doesn't fit? We design and build bespoke systems tailored to your exact business needs: inventory, HR, logistics, you name it.",
     features: ["ERP & CRM systems", "Inventory management", "Booking platforms", "API integrations"],
     details: [
       {
@@ -85,7 +85,7 @@ export const services = [
       },
       {
         heading: "Built for African Business",
-        text: "Multi-branch support, M-Pesa payment tracking, USSD menus, SMS notifications — we build with the Kenyan and African market in mind because that's where your customers are.",
+        text: "Multi-branch support, M-Pesa payment tracking, USSD menus, SMS notifications: we build with the Kenyan and African market in mind because that's where your customers are.",
       },
     ],
   },
@@ -94,7 +94,7 @@ export const services = [
     icon: Globe,
     title: "Domain & Hosting",
     tagline: "Your web infrastructure, handled",
-    description: "We handle your entire web infrastructure — domain registration, secure hosting, SSL, and ongoing maintenance so you never have to worry about uptime.",
+    description: "We handle your entire web infrastructure: domain registration, secure hosting, SSL, and ongoing maintenance so you never have to worry about uptime.",
     features: ["Cloud hosting setup", "Domain management", "SSL certificates", "99.9% uptime guarantee"],
     details: [
       {
@@ -121,7 +121,7 @@ export const services = [
     details: [
       {
         heading: "Proactive Monitoring",
-        text: "We don't wait for things to break. Our monitoring systems catch issues before they affect your users — downtime alerts, performance degradation, and security threats handled in real-time.",
+        text: "We don't wait for things to break. Our monitoring systems catch issues before they affect your users: downtime alerts, performance degradation, and security threats handled in real-time.",
       },
       {
         heading: "Regular Updates",
