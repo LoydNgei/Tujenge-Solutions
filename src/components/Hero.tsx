@@ -1,79 +1,61 @@
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import heroBg from "../assets/hero-bg.png";
+import { Headline } from "./Headline";
+import { useSettings } from "../lib/cms/content";
 
 export function Hero() {
+  const { hero } = useSettings();
+
   return (
-    <section className="relative flex min-h-[95vh] items-center overflow-hidden pt-20">
-      {/* Background image - Hidden on mobile, seamless transition on desktop */}
-      <div className="absolute inset-0 z-0 bg-surface/50 md:bg-transparent">
-        <div className="absolute inset-0 md:left-1/3 md:right-0">
-          <img
-            src={heroBg}
-            alt=""
-            className="hidden h-full w-full object-cover object-center md:block"
-            style={{
-              maskImage: "linear-gradient(to right, transparent, black 25%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 25%)",
-            }}
-          />
+    <section className="bg-background pt-28 pb-16 md:pt-36 md:pb-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-7">
+          <h1 className="font-heading text-[2.75rem] font-extrabold text-foreground sm:text-6xl lg:text-7xl">
+            <Headline before={hero.before} highlight={hero.highlight} after={hero.after} breaks />
+          </h1>
+
+          <p className="mt-6 max-w-xl text-lg text-muted-foreground md:text-xl">
+            {hero.subtitle}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-base font-bold text-primary-foreground transition-colors hover:bg-gold-light/85"
+            >
+              {hero.primaryCta}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-deep px-6 py-3 text-base font-bold text-deep transition-colors hover:bg-deep hover:text-deep-foreground"
+            >
+              {hero.secondaryCta}
+            </Link>
+          </div>
+
+          {hero.stats.length > 0 && (
+            <dl className="mt-12 flex max-w-xl divide-x divide-border border-y border-border">
+              {hero.stats.map((stat, i) => (
+                <div key={i} className="px-6 py-5 first:pl-0 sm:px-8">
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd className="font-heading text-3xl font-extrabold text-foreground md:text-4xl">{stat.value}</dd>
+                  <dd className="mt-1 text-sm text-muted-foreground">{stat.label}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
         </div>
-        {/* Soft background glow and gradient for readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
-        <div className="absolute inset-y-0 left-0 w-full md:w-1/2 md:backdrop-blur-[1px]" />
-      </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:pl-16 lg:pl-24">
-        <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <h1 className="font-heading text-4xl font-bold leading-[1.1] tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              We build digital
-              <br />
-              <span className="text-gradient-gold">solutions that grow</span>
-              <br />
-              your business
-            </h1>
-
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              From powerful web platforms to seamless payment systems, we partner
-              with businesses to build technology that actually works.
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-gold px-8 py-4 font-heading text-sm font-semibold text-primary-foreground shadow-warm-lg transition-all hover:opacity-90 hover:shadow-warm"
-              >
-                Start a project
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/projects"
-                className="inline-flex items-center gap-2 rounded-xl border border-border/70 bg-card px-8 py-4 font-heading text-sm font-semibold text-foreground shadow-warm transition-all hover:border-gold/40 hover:text-gold"
-              >
-                View our work
-              </Link>
-            </div>
-
-            {/* Social proof strip */}
-            <div className="mt-12 flex items-center gap-6 border-t border-border/50 pt-8">
-              <div className="text-center">
-                <p className="font-heading text-2xl font-bold text-foreground">2+</p>
-                <p className="text-xs text-muted-foreground">Projects Delivered</p>
-              </div>
-              <div className="h-8 w-px bg-border/60" />
-              <div className="text-center">
-                <p className="font-heading text-2xl font-bold text-foreground">100%</p>
-                <p className="text-xs text-muted-foreground">Client Satisfaction</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+        {hero.imageUrl && (
+          <div className="lg:col-span-5">
+            <img
+              src={hero.imageUrl}
+              alt=""
+              className="aspect-[4/3] w-full rounded-xl object-cover object-center lg:aspect-[4/5]"
+            />
+          </div>
+        )}
       </div>
     </section>
   );

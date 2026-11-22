@@ -1,11 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-
-const WHATSAPP_NUMBER = "254786379020"; // +254 786 379 020
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Tujenge%20Solutions!%20I%27d%20like%20to%20discuss%20a%20project.`;
+import { useSettings } from "../lib/cms/content";
 
 export function WhatsAppButton() {
   const [hovered, setHovered] = useState(false);
+  const { contact } = useSettings();
+  const number = contact.whatsappNumber.replace(/\D/g, "");
+  if (!number) return null;
+  const whatsappUrl = `https://wa.me/${number}?text=${encodeURIComponent(contact.whatsappMessage)}`;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
@@ -26,7 +28,7 @@ export function WhatsAppButton() {
 
       {/* WhatsApp button */}
       <motion.a
-        href={WHATSAPP_URL}
+        href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"

@@ -1,7 +1,8 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, useLocation } from "@tanstack/react-router";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { WhatsAppButton } from "../components/WhatsAppButton";
+import { loadContent } from "../lib/cms/content";
 
 import appCss from "../styles.css?url";
 
@@ -9,7 +10,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h1 className="text-7xl font-extrabold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">
           Page not found
         </h2>
@@ -59,32 +60,43 @@ export const Route = createRootRoute({
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Figtree:wght@400..700&display=swap",
       },
     ],
   }),
-  shellComponent: RootShell,
+  // Public pages render once site content is available (instant when cached).
+  loader: ({ location }) => (isAdminPath(location.pathname) ? null : loadContent()),
+  pendingComponent: () => (
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-gold/30 border-t-gold" />
+    </div>
+  ),
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
+function isAdminPath(pathname: string) {
+  return pathname === "/admin" || pathname.startsWith("/admin/");
 }
 
+// This is a client-rendered SPA mounted into index.html, so there's no
+// <html>/<body> shell here: rendering one inside #root makes React 19 adopt
+// the document's real <html>/<body> and hang on input selection events.
+// React hoists the title/meta tags from HeadContent into <head>.
 function RootComponent() {
+  const { pathname } = useLocation();
+  if (isAdminPath(pathname)) {
+    return (
+      <>
+        <HeadContent />
+        <Outlet />
+      </>
+    );
+  }
+
   return (
     <>
+      <HeadContent />
       <Navbar />
       <main>
         <Outlet />

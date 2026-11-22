@@ -1,38 +1,34 @@
 import { Link } from "@tanstack/react-router";
-import { services } from "../lib/services-data";
 import { ArrowUpRight } from "lucide-react";
+import { useServices, useSettings } from "../lib/cms/content";
 
-const socialLinks = [
-  { label: "LinkedIn", href: "#" },
-  { label: "X", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "TikTok", href: "#"},
-];
+const linkClass = "transition-colors hover:text-white hover:underline underline-offset-4";
 
 export function Footer() {
+  const services = useServices();
+  const { footer, contact } = useSettings();
+
   return (
-    <footer className="border-t border-border/60 bg-surface shadow-warm">
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid gap-8 md:grid-cols-12">
+    <footer className="bg-deep text-deep-foreground/70">
+      <div className="mx-auto max-w-7xl px-6 pt-16 pb-10">
+        <div className="grid gap-10 md:grid-cols-12">
           {/* Brand column */}
           <div className="md:col-span-4">
-            <Link to="/" className="font-heading text-xl font-bold">
-              <span className="text-gradient-gold">Tujenge</span>
-              <span className="text-foreground"> Solutions</span>
+            <Link to="/" className="font-heading text-2xl font-extrabold tracking-tight text-white">
+              Tujenge<span className="font-semibold text-white/60"> Solutions</span>
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Building smart, scalable digital solutions for SMEs and businesses
-              across Kenya. Your growth is our mission.
-            </p>
-            <div className="mt-5 flex gap-3">
-              {socialLinks.map((s) => (
+            <p className="mt-4 max-w-sm text-base">{footer.blurb}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {footer.socials.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
-                  className="inline-flex items-center gap-1 rounded-lg border border-border/60 px-2.5 py-1.5 text-[10px] font-medium text-muted-foreground transition-all hover:border-gold/40 hover:text-gold"
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 rounded-lg border border-white/20 px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-deep"
                 >
                   {s.label}
-                  <ArrowUpRight className="h-2.5 w-2.5" />
+                  <ArrowUpRight className="h-3.5 w-3.5" />
                 </a>
               ))}
             </div>
@@ -40,17 +36,11 @@ export function Footer() {
 
           {/* Services */}
           <div className="md:col-span-3">
-            <h4 className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-gold">
-              Services
-            </h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h4 className="mb-4 font-heading text-lg font-bold text-white">Services</h4>
+            <ul className="space-y-2.5 text-base">
               {services.slice(0, 5).map((s) => (
                 <li key={s.slug}>
-                  <Link
-                    to="/services/$slug"
-                    params={{ slug: s.slug }}
-                    className="transition-colors hover:text-gold"
-                  >
+                  <Link to="/services/$slug" params={{ slug: s.slug }} className={linkClass}>
                     {s.title}
                   </Link>
                 </li>
@@ -60,53 +50,49 @@ export function Footer() {
 
           {/* Company */}
           <div className="md:col-span-2">
-            <h4 className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-gold">
-              Company
-            </h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h4 className="mb-4 font-heading text-lg font-bold text-white">Company</h4>
+            <ul className="space-y-2.5 text-base">
               <li>
-                <Link to="/about" className="transition-colors hover:text-gold">
-                  About Us
-                </Link>
+                <Link to="/about" className={linkClass}>About us</Link>
               </li>
               <li>
-                <Link to="/projects" className="transition-colors hover:text-gold">
-                  Projects
-                </Link>
+                <Link to="/projects" className={linkClass}>Projects</Link>
               </li>
               <li>
-                <Link to="/contact" className="transition-colors hover:text-gold">
-                  Contact
-                </Link>
+                <Link to="/contact" className={linkClass}>Contact</Link>
               </li>
             </ul>
           </div>
 
           {/* Contact */}
           <div className="md:col-span-3">
-            <h4 className="mb-4 text-[10px] font-semibold uppercase tracking-widest text-gold">
-              Get in Touch
-            </h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>inquiry@tujengesolutions.com</li>
-              <li>+254 786 379 020</li>
-              <li>Nairobi, Kenya</li>
+            <h4 className="mb-4 font-heading text-lg font-bold text-white">Get in touch</h4>
+            <ul className="space-y-2.5 text-base">
+              {contact.email && (
+                <li>
+                  <a href={`mailto:${contact.email}`} className={linkClass}>
+                    {contact.email}
+                  </a>
+                </li>
+              )}
+              {contact.phone && (
+                <li>
+                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className={linkClass}>
+                    {contact.phone}
+                  </a>
+                </li>
+              )}
+              {contact.location && <li>{contact.location}</li>}
             </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-6 md:flex-row">
-          <p className="text-[11px] text-muted-foreground">
-            © {new Date().getFullYear()} Tujenge Solutions. All rights reserved.
-          </p>
-          <div className="flex gap-6 text-[11px] text-muted-foreground">
-            <span className="cursor-pointer transition-colors hover:text-gold">
-              Privacy Policy
-            </span>
-            <span className="cursor-pointer transition-colors hover:text-gold">
-              Terms of Service
-            </span>
+        <div className="mt-14 flex flex-col justify-between gap-4 border-t border-white/15 pt-6 text-sm md:flex-row">
+          <p>© {new Date().getFullYear()} Tujenge Solutions. All rights reserved.</p>
+          <div className="flex gap-6">
+            <span className="cursor-pointer hover:text-white">Privacy policy</span>
+            <span className="cursor-pointer hover:text-white">Terms of service</span>
           </div>
         </div>
       </div>

@@ -1,15 +1,19 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
-import { services } from "../lib/services-data";
 import { CTASection } from "../components/CTASection";
+import { loadContent, useServices } from "../lib/cms/content";
+import { getIcon } from "../lib/cms/icons";
 
 export const Route = createFileRoute("/services/$slug")({
   component: ServiceDetailPage,
-  head: ({ params }) => {
-    const service = services.find((s) => s.slug === params.slug);
-    const title = service ? `${service.title} — N5 Labs` : "Service — N5 Labs";
-    const desc = service?.description ?? "Digital services by N5 Labs.";
+  loader: async ({ params }) => {
+    const { services } = await loadContent();
+    return { service: services.find((s) => s.slug === params.slug) };
+  },
+  head: ({ loaderData }) => {
+    const service = loaderData?.service;
+    const title = service ? `${service.title} — Tujenge Solutions` : "Service — Tujenge Solutions";
+    const desc = service?.description ?? "Digital services by Tujenge Solutions.";
     return {
       meta: [
         { title },
@@ -22,7 +26,7 @@ export const Route = createFileRoute("/services/$slug")({
   notFoundComponent: () => (
     <div className="flex min-h-[60vh] items-center justify-center">
       <div className="text-center">
-        <h1 className="font-heading text-4xl font-bold">Service not found</h1>
+        <h1 className="font-heading text-4xl font-extrabold">Service not found</h1>
         <p className="mt-4 text-muted-foreground">This service page doesn't exist.</p>
         <Link to="/services" className="mt-6 inline-flex items-center gap-2 text-gold hover:underline">
           <ArrowLeft className="h-4 w-4" /> Back to services
@@ -34,6 +38,7 @@ export const Route = createFileRoute("/services/$slug")({
 
 function ServiceDetailPage() {
   const { slug } = Route.useParams();
+  const services = useServices();
   const service = services.find((s) => s.slug === slug);
 
   if (!service) {
@@ -43,17 +48,14 @@ function ServiceDetailPage() {
   const currentIndex = services.findIndex((s) => s.slug === slug);
   const nextService = services[(currentIndex + 1) % services.length];
   const prevService = services[(currentIndex - 1 + services.length) % services.length];
-  const Icon = service.icon;
+  const Icon = getIcon(service.icon);
 
   return (
     <>
       {/* Hero */}
       <section className="pt-32 pb-16">
         <div className="mx-auto max-w-7xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+          <div
           >
             <Link
               to="/services"
@@ -62,18 +64,18 @@ function ServiceDetailPage() {
               <ArrowLeft className="h-4 w-4" /> All Services
             </Link>
 
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gold/10">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-gold/10">
               <Icon className="h-8 w-8 text-gold" />
             </div>
 
-            <h1 className="font-heading text-4xl font-bold md:text-6xl">
+            <h1 className="font-heading text-4xl font-extrabold md:text-6xl">
               {service.title}
             </h1>
             <p className="mt-2 text-lg font-medium text-gold">{service.tagline}</p>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
               {service.description}
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -81,17 +83,13 @@ function ServiceDetailPage() {
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {service.features.map((feature, i) => (
-            <motion.div
-              key={feature}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
+            <div
+              key={i}
               className="flex items-center gap-3 rounded-xl border border-border/50 bg-surface p-5"
             >
               <CheckCircle className="h-5 w-5 shrink-0 text-gold" />
               <span className="text-sm font-medium text-foreground">{feature}</span>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
@@ -100,24 +98,20 @@ function ServiceDetailPage() {
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="space-y-12">
           {service.details.map((detail, i) => (
-            <motion.div
-              key={detail.heading}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
+            <div
+              key={i}
               className="grid gap-8 md:grid-cols-2 md:items-center"
             >
               <div className={i % 2 !== 0 ? "md:order-2" : ""}>
-                <h2 className="font-heading text-2xl font-bold md:text-3xl">
+                <h2 className="font-heading text-2xl font-extrabold md:text-3xl">
                   {detail.heading}
                 </h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">
                   {detail.text}
                 </p>
               </div>
-              <div className={`h-48 rounded-2xl bg-gradient-to-br from-gold-dark/10 to-surface border border-border/50 ${i % 2 !== 0 ? "md:order-1" : ""}`} />
-            </motion.div>
+              <div className={`h-48 rounded-xl bg-gradient-to-br from-gold-dark/10 to-surface border border-border/50 ${i % 2 !== 0 ? "md:order-1" : ""}`} />
+            </div>
           ))}
         </div>
       </section>

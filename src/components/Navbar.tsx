@@ -2,9 +2,16 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { services } from "../lib/services-data";
+import { useServices } from "../lib/cms/content";
 
-const navConfig = [
+type NavItem = {
+  label: string;
+  to: string;
+  type: "link" | "dropdown";
+  menu?: { label: string; to: string; params?: { slug: string }; hash?: string }[];
+};
+
+const buildNavConfig = (services: { title: string; slug: string }[]): NavItem[] => [
   { label: "Home", to: "/", type: "link" },
   {
     label: "Services",
@@ -30,6 +37,7 @@ const navConfig = [
 ];
 
 export function Navbar() {
+  const navConfig = buildNavConfig(useServices());
   const [open, setOpen] = useState(false);
   const [mobileOpenSection, setMobileOpenSection] = useState<string | null>(null);
   const location = useLocation();
@@ -53,12 +61,11 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/60 bg-background">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-20">
           {/* Logo */}
-          <Link to="/" className="font-heading text-xl font-bold tracking-tight transition-transform hover:scale-105">
-            <span className="text-gradient-gold">Tujenge</span>
-            <span className="text-foreground"> Solutions</span>
+          <Link to="/" className="font-heading text-2xl font-extrabold tracking-tight text-foreground">
+            Tujenge<span className="font-semibold text-muted-foreground"> Solutions</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -67,10 +74,10 @@ export function Navbar() {
               <div key={item.label} className="group relative py-4">
                 <Link
                   to={item.to as any}
-                  className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+                  className={`flex items-center gap-1.5 text-[15px] font-semibold transition-colors ${
                     isActive(item.to)
-                      ? "text-gold"
-                      : "text-muted-foreground hover:text-gold"
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {item.label}
@@ -81,13 +88,14 @@ export function Navbar() {
 
                 {item.type === "dropdown" && (
                   <div className="pointer-events-none absolute left-0 top-full pt-2 opacity-0 transition-all group-hover:pointer-events-auto group-hover:opacity-100">
-                    <div className="min-w-[200px] overflow-hidden rounded-xl border border-border/60 bg-card p-2 shadow-warm-lg backdrop-blur-xl">
+                    <div className="min-w-[200px] overflow-hidden rounded-xl border border-border/60 bg-card p-2">
                       {item.menu?.map((sub) => (
                         <Link
                           key={sub.label}
                           to={sub.to as any}
-                          params={sub.params}
-                          className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-gold/10 hover:text-gold"
+                          params={sub.params as any}
+                          hash={sub.hash}
+                          className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground"
                         >
                           {sub.label}
                         </Link>
@@ -99,7 +107,7 @@ export function Navbar() {
             ))}
             <Link
               to="/contact"
-              className="rounded-xl bg-gradient-gold px-6 py-2.5 text-sm font-semibold text-primary-foreground shadow-warm transition-all hover:opacity-90"
+              className="rounded-lg bg-primary px-5 py-2.5 text-[15px] font-bold text-primary-foreground transition-colors hover:bg-gold-light/85"
             >
               Get Started
             </Link>
@@ -108,7 +116,7 @@ export function Navbar() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setOpen(true)}
-            className="rounded-xl bg-surface p-2 text-foreground md:hidden shadow-warm"
+            className="rounded-xl bg-surface p-2 text-foreground md:hidden"
           >
             <Menu size={24} />
           </button>
@@ -124,7 +132,7 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-[100] bg-background/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-[100] bg-deep/50 md:hidden"
             />
             <motion.div
               initial={{ x: "100%" }}
@@ -136,11 +144,11 @@ export function Navbar() {
               {/* Header */}
               <div className="flex h-16 items-center justify-between border-b border-border/50 px-6">
                 <Link to="/" onClick={() => setOpen(false)} className="font-heading text-lg font-bold">
-                  <span className="text-gradient-gold">Tujenge</span> Solutions
+                  Tujenge<span className="font-semibold text-muted-foreground"> Solutions</span>
                 </Link>
                 <button
                   onClick={() => setOpen(false)}
-                  className="rounded-full bg-surface p-2 text-muted-foreground hover:bg-gold/10 hover:text-gold"
+                  className="rounded-full bg-surface p-2 text-muted-foreground hover:bg-surface hover:text-foreground"
                 >
                   <X size={20} />
                 </button>
@@ -156,7 +164,7 @@ export function Navbar() {
                           to={item.to as any}
                           onClick={() => setOpen(false)}
                           className={`text-xl font-bold transition-colors ${
-                            isActive(item.to) ? "text-gold" : "text-foreground"
+                            isActive(item.to) ? "text-foreground" : "text-foreground"
                           }`}
                         >
                           {item.label}
@@ -171,7 +179,7 @@ export function Navbar() {
                             }
                             className={`rounded-lg p-2 transition-colors ${
                               mobileOpenSection === item.label
-                                ? "bg-gold/10 text-gold"
+                                ? "bg-accent text-foreground"
                                 : "bg-surface text-muted-foreground"
                             }`}
                           >
@@ -198,9 +206,10 @@ export function Navbar() {
                                 <Link
                                   key={sub.label}
                                   to={sub.to as any}
-                                  params={sub.params}
+                                  params={sub.params as any}
+                                  hash={sub.hash}
                                   onClick={() => setOpen(false)}
-                                  className="py-2.5 text-base font-medium text-muted-foreground hover:text-gold"
+                                  className="py-2.5 text-base font-medium text-muted-foreground hover:text-foreground"
                                 >
                                   {sub.label}
                                 </Link>
@@ -219,7 +228,7 @@ export function Navbar() {
                 <Link
                   to="/contact"
                   onClick={() => setOpen(false)}
-                  className="flex w-full items-center justify-center rounded-xl bg-gradient-gold py-4 font-heading text-sm font-bold text-primary-foreground shadow-warm"
+                  className="flex w-full items-center justify-center rounded-lg bg-primary py-4 text-base font-bold text-primary-foreground"
                 >
                   Get Started
                 </Link>

@@ -1,90 +1,33 @@
-import { motion } from "framer-motion";
-import { MessageSquare, Search, Code, Rocket } from "lucide-react";
-
-const steps = [
-  {
-    icon: MessageSquare,
-    number: "01",
-    title: "Discovery Call",
-    description:
-      "We start with a conversation. Tell us about your business, goals, and pain points. No jargon, just a real chat about where you want to go.",
-  },
-  {
-    icon: Search,
-    number: "02",
-    title: "Research & Strategy",
-    description:
-      "We dig into your market, competitors, and audience. Then we craft a tailored strategy with clear milestones and deliverables.",
-  },
-  {
-    icon: Code,
-    number: "03",
-    title: "Design & Build",
-    description:
-      "Our team gets to work: designing, coding, and testing. You get regular updates and previews so nothing catches you off guard.",
-  },
-  {
-    icon: Rocket,
-    number: "04",
-    title: "Launch & Grow",
-    description:
-      "We launch your project and stick around. Ongoing support, performance monitoring, and optimizations to keep you growing.",
-  },
-];
+import { Headline } from "./Headline";
+import { useSettings } from "../lib/cms/content";
 
 export function ProcessSection() {
+  const { process } = useSettings();
+  const steps = process.steps;
+
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="mb-16"
-      >
-        <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-gold">
-          Our Process
-        </p>
-        <h2 className="font-heading text-3xl font-bold md:text-5xl">
-          How we <span className="text-gradient-gold">make it happen</span>
-        </h2>
-      </motion.div>
+    <section className="bg-deep py-20 text-deep-foreground md:py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-12 max-w-2xl md:mb-16">
+          {process.eyebrow && (
+            <p className="mb-3 text-base font-bold text-gold-light">{process.eyebrow}</p>
+          )}
+          <h2 className="font-heading text-4xl font-extrabold text-white md:text-5xl">
+            <Headline {...process} />
+          </h2>
+        </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {steps.map((step, i) => {
-          const Icon = step.icon;
-          return (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.6 }}
-              className="group relative rounded-2xl border border-border/60 bg-card p-8 shadow-warm transition-all duration-300 hover:border-gold/30 hover:shadow-warm-lg"
-            >
-              {/* Step number */}
-              <span className="absolute right-6 top-6 font-heading text-4xl font-bold text-gold/10 transition-colors group-hover:text-gold/20">
-                {step.number}
+        <ol className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {steps.map((step, i) => (
+            <li key={i} className="border-t-2 border-white/15 pt-6">
+              <span className="font-heading text-5xl font-extrabold leading-none text-gold-light">
+                {i + 1}
               </span>
-
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10">
-                <Icon className="h-6 w-6 text-gold" />
-              </div>
-
-              <h3 className="mb-3 font-heading text-lg font-bold text-foreground">
-                {step.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {step.description}
-              </p>
-
-              {/* Connector line on desktop */}
-              {i < steps.length - 1 && (
-                <div className="pointer-events-none absolute right-0 top-1/2 hidden h-px w-6 translate-x-full bg-gradient-to-r from-gold/30 to-transparent lg:block" />
-              )}
-            </motion.div>
-          );
-        })}
+              <h3 className="mt-5 font-heading text-xl font-bold text-white">{step.title}</h3>
+              <p className="mt-2 text-base text-white/70">{step.description}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
